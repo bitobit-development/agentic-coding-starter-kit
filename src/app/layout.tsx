@@ -16,9 +16,9 @@ const geistMono = Geist_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "Agentic Coding Boilerplate",
+  title: "TaskFlow AI - Where Productivity Meets Intelligence",
   description:
-    "Complete agentic coding boilerplate with authentication, database, AI integration, and modern tooling - perfect for building AI-powered applications and autonomous agents by Leon van Zyl",
+    "Revolutionary task management powered by AI. Effortlessly organize, categorize, and prioritize your tasks with intelligent automation. Transform your productivity with TaskFlow AI.",
 };
 
 export default function RootLayout({

@@ -1,7 +1,8 @@
 "use client";
 
 import { useSession, signOut } from "@/lib/auth-client";
-import { SignInButton } from "./sign-in-button";
+import { SignInModal } from "./sign-in-modal";
+import { Button } from "@/components/ui/button";
 import { Avatar, AvatarImage, AvatarFallback } from "@/components/ui/avatar";
 import {
   DropdownMenu,
@@ -11,23 +12,32 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import Link from "next/link";
 import { useRouter } from "next/navigation";
-import { User, LogOut } from "lucide-react";
+import { LogOut, Loader2 } from "lucide-react";
 
 export function UserProfile() {
   const { data: session, isPending } = useSession();
   const router = useRouter();
 
   if (isPending) {
-    return <div>Loading...</div>;
+    return (
+      <Button disabled size="sm" variant="ghost">
+        <Loader2 className="h-4 w-4 animate-spin mr-2" />
+        Loading
+      </Button>
+    );
   }
 
   if (!session) {
     return (
-      <div className="flex flex-col items-center gap-4 p-6">
-        <SignInButton />
-      </div>
+      <SignInModal>
+        <Button
+          size="sm"
+          className="bg-gradient-to-r from-primary via-blue-600 to-purple-600 hover:from-primary/90 hover:via-blue-600/90 hover:to-purple-600/90 text-white shadow-lg transition-all duration-300"
+        >
+          Sign In
+        </Button>
+      </SignInModal>
     );
   }
 
@@ -66,13 +76,6 @@ export function UserProfile() {
             </p>
           </div>
         </DropdownMenuLabel>
-        <DropdownMenuSeparator />
-        <DropdownMenuItem asChild>
-          <Link href="/profile" className="flex items-center">
-            <User className="mr-2 h-4 w-4" />
-            Your Profile
-          </Link>
-        </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem onClick={handleSignOut} variant="destructive">
           <LogOut className="mr-2 h-4 w-4" />
